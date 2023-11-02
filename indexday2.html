@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Day2</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <div id="app">
+      <h3>Пошук</h3>
+      <input v-model="search" placeholder="Пошук за прізвищем" />
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ПІБ</th>
+            <th>Група</th>
+            <th>Рік народження</th>
+            <th>Практика</th>
+            <th>Дії</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="student in students" :key="student.id" :class="{ 'bg-primary': isMatched(student) }">
+            <td>{{ student.name }}</td>
+            <td>{{ student.group }}</td>
+            <td>{{ student.year }}</td>
+            <td>
+              <input type="checkbox" v-model="student.practice" />
+            </td>
+            <td>
+              <button @click="removeStudent(student.id)">Видалити</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <script>
+      var vm = new Vue({
+        el: "#app",
+        data: {
+          students: [
+            { id: 1, name: "Школяренко Дмитро", group: "Група 2", year: 2003, practice: true },
+            { id: 2, name: "Астіон Мілана", group: "Група 2", year: 2002, practice: false },
+            { id: 3, name: "Нерознак Валерія", group: "Група 1", year: 2003, practice: true },
+            { id: 4, name: "Халявенко Софія", group: "Група 1", year: 2004, practice: true },
+          ],
+          search: "",
+        },
+        methods: {
+          removeStudent(id) {
+            this.students = this.students.filter((student) => student.id !== id);
+          },
+          isMatched(student) {
+            return this.search && student.name.includes(this.search);
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
+
+
+
+
