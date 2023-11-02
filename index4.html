@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Завдання 4</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+</head>
+<body>
+  <div id="app">
+    <label>
+      <input type="checkbox" v-model="showWithAuthor"> Показувати цитати з автором
+    </label>
+
+    <button @click="sortByAuthor">Сортувати за автором</button>
+
+    <ul>
+      <li v-for="quote in filteredQuotes" :key="quote.quote" :style="{ color: quote.quote.length > 40 ? 'red' : 'black' }">
+        "{{ quote.quote }}" - {{ quote.source }}
+      </li>
+    </ul>
+  </div>
+
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        quotes: [
+          {
+            "quote": "This is just a Quote1 This is just a Quote1 This is just a Quote1 This is just a Quote1 This is just a Quote1",
+            "source": "Christopher"
+          },
+          {
+            "quote": "This is just a Quote2",
+            "source": "Martin"
+          },
+          {
+            "quote": "This is just a Quote3",
+            "source": "Dennis"
+          },
+          {
+            "quote": "This is just a Quote4",
+            "source": ""
+          },
+        ],
+        showWithAuthor: false,
+      },
+      methods: {
+        sortByAuthor: function () {
+          this.quotes.sort((a, b) => a.source.localeCompare(b.source));
+        },
+      },
+      computed: {
+        filteredQuotes: function () {
+          if (this.showWithAuthor) {
+            return this.quotes.filter(quote => quote.source !== "");
+          }
+          return this.quotes;
+        },
+      },
+    });
+  </script>
+</body>
+</html>

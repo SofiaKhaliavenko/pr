@@ -1,0 +1,43 @@
+<html>
+    <head>
+        <title>Day1- Завдання 1-2</title>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    </head>
+    <body>
+        <input type="number" v-model="a">
+        <div id="app">
+            <p>Квадрат числа a: {{ aSquare }}</p>
+        </div>
+        <div id="vue_det">
+            <img v-bind:src="imgsrc">
+            <a v-bind:href="hreflink">Google</a>
+        </div>
+
+        <script>
+            var vm = new Vue({
+                el: "#app",
+                data: { a: 7 },
+                computed: {
+                    aSquare: function() {
+                        return this.a * this.a;
+                    }
+                }
+            });
+
+            var inputElement = document.querySelector('input');
+            inputElement.addEventListener('input', function() {
+                vm.a = parseFloat(inputElement.value); 
+            });
+
+            var vm_det = new Vue({
+                el: '#vue_det',
+                data: {
+                    imgsrc: "img/image.jpg",
+                    hreflink: "http://www.google.com"
+                }
+            });
+        </script>
+    </body>
+</html>
+
+
